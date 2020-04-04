@@ -13,11 +13,11 @@ const ()
 
 // Signature 签名机制
 // https://docs.qingcloud.com/product/api/common/signature.html
-func Signature(reqMethod string, uri string, param url.Values, secret string) string {
+func Signature(reqMethod string, platform string, param url.Values, secret string) string {
 
 	// fmt.Println("param.Encode=", param.Encode())
 	urls := param.Encode()
-	source := reqMethod + "\n" + uri + "\n" + urls
+	source := reqMethod + "\n" + platform + "\n" + urls
 
 	// fmt.Println(source)
 	// return ShaHmac1(source, secret)
