@@ -1,15 +1,38 @@
 package client
 
-// Client for alidns config
+import (
+	"io/ioutil"
+
+	"gopkg.in/yaml.v2"
+)
+
+// Client config
 type Client struct {
-	SecretID  string
-	SecretKey string
+	QyAccessKeyID     string `yaml:"qy_access_key_id"`
+	QySecretAccessKey string `yaml:"qy_secret_access_key"`
+	Zone              string `yaml:"zone,omitempty"`
 }
 
-// New return a alidns client
-func New(secretID, secretKey string) *Client {
+// New return
+func New(secretID, secretKey, zone string) *Client {
 	return &Client{
-		SecretID:  secretID,
-		SecretKey: secretKey,
+		QyAccessKeyID:     secretID,
+		QySecretAccessKey: secretKey,
+		Zone:              zone,
 	}
+}
+
+// NewWithFile
+func NewWithFile(file string) *Client {
+	var user = Client{}
+
+	fb, err := ioutil.ReadFile(file)
+	if err != nil {
+		panic(err)
+	}
+	err = yaml.Unmarshal(fb, &user)
+	if err != nil {
+		panic(err)
+	}
+	return New(user.QyAccessKeyID, user.QySecretAccessKey, user.Zone)
 }

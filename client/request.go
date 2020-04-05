@@ -1,0 +1,109 @@
+package client
+
+import (
+	"fmt"
+	"io"
+	"io/ioutil"
+	"net/http"
+	"net/url"
+	"time"
+)
+
+const (
+	// QINGCLOUD api server
+	apiServer   = "api.qingcloud.com"
+	apiPlatform = "/iaas/"
+	apiVersion  = "1"
+
+	reqProtocol      = "https"
+	SignatureMethod  = "HmacSHA256"
+	SignatureVersion = "1"
+	timeFormat       = "2006-01-02T15:04:05Z"
+)
+
+// ErrorResponse alidns 默认错误信息结构
+type ErrorResponse struct {
+	Code      string `json:"Code,omitempty"`
+	HostID    string `json:"HostId,omitempty"`
+	Message   string `json:"Message,omitempty"`
+	RequestID string `json:"RequestId,omitempty"`
+}
+
+// 请求 alidns API
+// 当返回 error 为 nil 的时候， errResp 一定为空结构体。 否则可以通过 errResp.Message 查看错误信息。
+func (cli *Client) request(method, action string, param url.Values, body io.Reader, respInfo interface{}) ([]byte, error) {
+	if param == nil {
+		param = url.Values{}
+	}
+
+	// 设置时区:
+	//    https://blog.csdn.net/qq_26981997/article/details/53454606
+	loc, _ := time.LoadLocation("") //参数就是解压文件的“目录”+“/”+“文件名”。
+	//fmt.Println(time.Now().In(loc))
+	//timeNow := time.Now().In(loc)
+	//timeNow.Format("2006-01-02T15:04:05Z")
+	timestamp := time.Now().In(loc).Format(timeFormat)
+
+	// 阿里云服务器时间使用的是 UTC 时区。 中国时区+8
+	// 会一直报错: Specified time stamp or date value is expired
+	param.Set("time_stamp", timestamp)
+
+	// common body
+	// param.Set("Format", "JSON")
+	param.Set("signature_method", SignatureMethod)
+	param.Set("signature_version", SignatureVersion)
+	param.Set("version", apiVersion)
+	param.Set("access_key_id", cli.QyAccessKeyID)
+
+	// ActionBody 请求是传入
+	//param.Set("DomainName", "example.com")
+	param.Set("action", action)
+
+	// 获取签名
+	// 注意: 阿里云对用户 key 签名有特殊说明
+	//    https://help.aliyun.com/document_detail/29747.html?spm=a2c4g.11186623.6.619.57ad2846HCScB1
+	signature := Signature(method, apiPlatform, param, cli.QySecretAccessKey)
+	// 请求体中增加签名参数
+	//param.Set("Signature", url.QueryEscape(signature))
+	// param.Set("signature", signature)
+
+	// 构建 url 请求地址
+	// https://api.qingcloud.com/iaas/?access_key_id=QYACCESSKEYIDEXAMPLE&action=DescribeInstances&expires=2013-08-29T07%3A42%3A25Z&limit=20&signature_method=HmacSHA256&signature_version=1&status.1=running&time_stamp=2013-08-29T06%3A42%3A25Z&version=1&zone=pek3b&signature=ihPnXFgsg5yyqhDN2IejJ2%2Bbo89ABQ1UqFkyOdzRITY%3D
+	reqURL := reqProtocol + "://" + apiServer + apiPlatform + "?" + param.Encode() + "&signature=" + signature
+	fmt.Println(reqURL)
+
+	req, err := http.NewRequest(method, reqURL, body)
+	if err != nil {
+		return nil, err
+	}
+
+	// 发起请求
+	resp, err := http.DefaultClient.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	// 关闭请求
+	defer resp.Body.Close()
+
+	// 获取 body 内容
+	return ioutil.ReadAll(resp.Body)
+
+}
+
+// requestGET 使用 GET 方法请求 API
+func (cli *Client) requestGET(action string, param url.Values, respInfo interface{}) ([]byte, error) {
+	return cli.request("GET", action, param, nil, respInfo)
+}
+
+// Do 开始执行请求
+func (cli *Client) Do(action string, body map[string]string, optional map[string]string, respInfo interface{}) ([]byte, error) {
+	param := url.Values{}
+	for k, v := range body {
+		param.Set(k, v)
+	}
+	for k, v := range optional {
+		param.Set(k, v)
+	}
+
+	return cli.requestGET(action, param, respInfo)
+}
