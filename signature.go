@@ -1,4 +1,4 @@
-package client
+package qingyun
 
 import (
 	"crypto/hmac"
