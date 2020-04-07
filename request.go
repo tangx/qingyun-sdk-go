@@ -105,5 +105,10 @@ func (cli *Client) Do(action string, body map[string]string, optional map[string
 		param.Set(k, v)
 	}
 
+	// 判断参数是否带有 zone, 否则使用 config 里面默认默认值
+	if zone := param.Get("zone"); zone == "" {
+		param.Set("zone", cli.Zone)
+	}
+
 	return cli.requestGET(action, param, respInfo)
 }
