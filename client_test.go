@@ -21,6 +21,7 @@ func Test_Get(t *testing.T) {
 
 }
 
+// 启动实例
 func Test_RunInstance(t *testing.T) {
 	cli := NewWithFile(authFile)
 
@@ -49,4 +50,24 @@ func Test_RunInstance(t *testing.T) {
 
 	bodyByte, _ := cli.Do("RunInstances", runInstancesData, nil, nil)
 	fmt.Printf("%s", bodyByte)
+}
+
+// Test_DescribeReservedContracts 列出所有预留约合
+func Test_DescribeReservedContracts(t *testing.T) {
+	cli := NewWithFile(authFile)
+
+	bodyByte, _ := cli.Do("DescribeReservedContracts", nil, nil, nil)
+	fmt.Printf("%s\n", bodyByte)
+}
+
+// Test_DescribeReservedResources 根据预留合约ID 查询绑定信息
+func Test_DescribeReservedResources(t *testing.T) {
+	cli := NewWithFile(authFile)
+
+	data := map[string]string{
+		"contracts.1": "rc-kAtfWuFu",
+		"zone":        "pek3c",
+	}
+	bodyByte, _ := cli.Do("DescribeReservedResources", data, nil, nil)
+	fmt.Printf("%s\n", bodyByte)
 }
