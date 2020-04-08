@@ -68,6 +68,7 @@ func Test_DescribeReservedResources(t *testing.T) {
 		"contracts.1": "rc-kAtfWuFu",
 		"zone":        "pek3c",
 	}
-	bodyByte, _ := cli.Do("DescribeReservedResources", data, nil, nil)
+
+	bodyByte, _ := cli.Get("DescribeReservedResources", data)
 	fmt.Printf("%s\n", bodyByte)
 }

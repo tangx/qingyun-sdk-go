@@ -1,7 +1,6 @@
 package qingyun
 
 import (
-	"fmt"
 	"io"
 	"io/ioutil"
 	"net/http"
@@ -70,7 +69,7 @@ func (cli *Client) request(method, action string, param url.Values, body io.Read
 	// 构建 url 请求地址
 	// https://api.qingcloud.com/iaas/?access_key_id=QYACCESSKEYIDEXAMPLE&action=DescribeInstances&expires=2013-08-29T07%3A42%3A25Z&limit=20&signature_method=HmacSHA256&signature_version=1&status.1=running&time_stamp=2013-08-29T06%3A42%3A25Z&version=1&zone=pek3b&signature=ihPnXFgsg5yyqhDN2IejJ2%2Bbo89ABQ1UqFkyOdzRITY%3D
 	reqURL := reqProtocol + "://" + apiServer + apiPlatform + "?" + param.Encode() + "&signature=" + signature
-	fmt.Println(reqURL)
+	// fmt.Println(reqURL)
 
 	req, err := http.NewRequest(method, reqURL, body)
 	if err != nil {
@@ -111,4 +110,9 @@ func (cli *Client) Do(action string, body map[string]string, optional map[string
 	}
 
 	return cli.requestGET(action, param, respInfo)
+}
+
+// HttpGet 请求直接使用 map[string]string 传递所有调用请求。 具体请求参数查看青云对应 API 文档
+func (cli *Client) Get(action string, body map[string]string) ([]byte, error) {
+	return cli.Do(action, body, nil, nil)
 }
