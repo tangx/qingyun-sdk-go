@@ -112,7 +112,12 @@ func (cli *Client) Do(action string, body map[string]string, optional map[string
 	return cli.requestGET(action, param, respInfo)
 }
 
-// HttpGet 请求直接使用 map[string]string 传递所有调用请求。 具体请求参数查看青云对应 API 文档
+// Get 请求直接使用 map[string]string 传递所有调用请求。 具体请求参数查看青云对应 API 文档
 func (cli *Client) Get(action string, body map[string]string) ([]byte, error) {
 	return cli.Do(action, body, nil, nil)
+}
+
+// GetByUrlValues 请求直接使用 url.Values 作为参数。 具体请求参数查看青云对应 API 文档
+func (cli *Client) GetByUrlValues(action string, params url.Values) ([]byte, error) {
+	return cli.requestGET(action, params, nil)
 }
