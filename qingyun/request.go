@@ -58,6 +58,11 @@ func (cli *Client) request(method, action string, param url.Values, body io.Read
 	//param.Set("DomainName", "example.com")
 	param.Set("action", action)
 
+	// 判断参数是否带有 zone, 否则使用 config 里面默认默认值
+	if zone := param.Get("zone"); zone == "" {
+		param.Set("zone", cli.Zone)
+	}
+
 	// 获取签名
 	// 注意: 阿里云对用户 key 签名有特殊说明
 	//    https://help.aliyun.com/document_detail/29747.html?spm=a2c4g.11186623.6.619.57ad2846HCScB1
