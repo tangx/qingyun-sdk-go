@@ -69,6 +69,6 @@ func Test_DescribeReservedResources(t *testing.T) {
 		"zone":        "pek3c",
 	}
 
-	bodyByte, _ := cli.Get("DescribeReservedResources", data)
+	bodyByte, _ := cli.GetByMap("DescribeReservedResources", data)
 	fmt.Printf("%s\n", bodyByte)
 }

@@ -109,16 +109,11 @@ func (cli *Client) Do(action string, body map[string]string, optional map[string
 		param.Set(k, v)
 	}
 
-	// 判断参数是否带有 zone, 否则使用 config 里面默认默认值
-	if zone := param.Get("zone"); zone == "" {
-		param.Set("zone", cli.Zone)
-	}
-
 	return cli.requestGET(action, param, respInfo)
 }
 
-// Get 请求直接使用 map[string]string 传递所有调用请求。 具体请求参数查看青云对应 API 文档
-func (cli *Client) Get(action string, body map[string]string) ([]byte, error) {
+// GetByMap 请求直接使用 map[string]string 传递所有调用请求。 具体请求参数查看青云对应 API 文档
+func (cli *Client) GetByMap(action string, body map[string]string) ([]byte, error) {
 	return cli.Do(action, body, nil, nil)
 }
 
