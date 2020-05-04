@@ -72,3 +72,22 @@ func Test_DescribeReservedResources(t *testing.T) {
 	bodyByte, _ := cli.GetByMap("DescribeReservedResources", data)
 	fmt.Printf("%s\n", bodyByte)
 }
+
+func Test_DescribeVolumes(t *testing.T) {
+
+	// logrus.SetLevel(logrus.DebugLevel)
+	cli := NewWithFile(authFile)
+
+	params := DescribeVolumesRequest{
+		Volumes: []string{"vol-s958u8rj"},
+	}
+
+	resp, err := cli.DescribeVolumes(params)
+	if err != nil {
+		panic(err)
+	}
+
+	if resp.TotalCount == 1 {
+		fmt.Println(resp)
+	}
+}

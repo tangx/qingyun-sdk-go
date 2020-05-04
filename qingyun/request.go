@@ -1,11 +1,17 @@
 package qingyun
 
 import (
+	"encoding/json"
+	"errors"
+	"fmt"
 	"io"
 	"io/ioutil"
 	"net/http"
 	"net/url"
 	"time"
+
+	"github.com/sirupsen/logrus"
+	"github.com/tangx/go-querystring/query"
 )
 
 const (
@@ -20,12 +26,10 @@ const (
 	timeFormat       = "2006-01-02T15:04:05Z"
 )
 
-// ErrorResponse alidns 默认错误信息结构
+// ErrorResponse is default error response
 type ErrorResponse struct {
-	Code      string `json:"Code,omitempty"`
-	HostID    string `json:"HostId,omitempty"`
-	Message   string `json:"Message,omitempty"`
-	RequestID string `json:"RequestId,omitempty"`
+	RetCode int    `json:"ret_code,omitempty"`
+	Message string `json:"message,omitempty"`
 }
 
 // 请求 alidns API
@@ -120,4 +124,30 @@ func (cli *Client) GetByMap(action string, body map[string]string) ([]byte, erro
 // GetByUrlValues 请求直接使用 url.Values 作为参数。 具体请求参数查看青云对应 API 文档
 func (cli *Client) GetByUrlValues(action string, params url.Values) ([]byte, error) {
 	return cli.requestGET(action, params, nil)
+}
+
+// func MethodGET
+func (cli *Client) MethodGET(action string, params interface{}, ptrResp interface{}) error {
+
+	urlValues, err := query.Values(params)
+	if err != nil {
+		return err
+	}
+
+	data, err := cli.requestGET(action, urlValues, ptrResp)
+	if err != nil {
+		msg := ErrorResponse{}
+		json.Unmarshal(data, &msg)
+		s := fmt.Sprintf("%d: %s", msg.RetCode, msg.Message)
+
+		return errors.New(s)
+	}
+	logrus.Debugf("%s", data)
+
+	err = json.Unmarshal(data, ptrResp)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
