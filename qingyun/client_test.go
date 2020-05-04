@@ -9,6 +9,10 @@ const (
 	authFile = `/Users/tangxin/.qingcloud/config.yaml`
 )
 
+var (
+	cli = NewWithFile(authFile)
+)
+
 func Test_Get(t *testing.T) {
 	cli := NewWithFile(authFile)
 
@@ -90,4 +94,19 @@ func Test_DescribeVolumes(t *testing.T) {
 	if resp.TotalCount == 1 {
 		fmt.Println(resp)
 	}
+}
+
+func Test_DescribeInstances(t *testing.T) {
+
+	params := DescribeInstancesRequest{
+		Instances: []string{"i-cjg5iepp"},
+	}
+	resp, err := cli.DescribeInstances(params)
+
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(resp)
+
 }
