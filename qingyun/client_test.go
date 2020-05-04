@@ -110,3 +110,12 @@ func Test_DescribeInstances(t *testing.T) {
 	fmt.Println(resp)
 
 }
+
+func Test_DescribeZones(t *testing.T) {
+	params := DescribeZonesRequest{}
+	resp, err := cli.DescribeZones(params)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(resp)
+}
