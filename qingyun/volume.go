@@ -73,6 +73,8 @@ type DescribeVolumeSet struct {
 	ZoneID           string `json:"zone_id,omitempty"`
 	VolumeType       int    `json:"volume_type,omitempty"`
 	VolumeName       string `json:"volume_name,omitempty"`
+	Status           string `json:"status"`
+	Attachable       bool   `json:"attachable"`
 }
 
 func (cli *Client) DescribeVolumes(params DescribeVolumesRequest) (resp DescribeVolumesResponse, err error) {

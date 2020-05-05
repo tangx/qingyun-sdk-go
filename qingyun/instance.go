@@ -45,33 +45,37 @@ type DescribeInstancesResponse struct {
 }
 
 type InstanceSet struct {
-	Vxnets           []Vxnet  `json:"vxnets,omitempty"`
-	MemoryCurrent    int      `json:"memory_current,omitempty"`
-	VcpusCurrent     int      `json:"vcpus_current,omitempty"`
-	Image            Image    `json:"image,omitempty"`
-	InstanceName     string   `json:"instance_name,omitempty"`
-	InstanceClass    int      `json:"instance_class,omitempty"`
-	Status           string   `json:"status,omitempty"`
-	Description      string   `json:"description,omitempty"`
-	ReservedContract string   `json:"reserved_contract,omitempty"`
-	VolumeIDS        []string `json:"volume_ids,omitempty"`
-	ZoneID           string   `json:"zone_id,omitempty"`
-	InstanceID       string   `json:"instance_id,omitempty"`
-	InstanceType     string   `json:"instance_type,omitempty"`
-	Volumes          []Volume `json:"volumes,omitempty"`
-	KeypairIDS       []string `json:"keypair_ids,omitempty"`
+	Vxnets           []InstanceSetVxnet  `json:"vxnets,omitempty"`
+	MemoryCurrent    int                 `json:"memory_current,omitempty"`
+	VcpusCurrent     int                 `json:"vcpus_current,omitempty"`
+	Image            InstanceSetImage    `json:"image,omitempty"`
+	InstanceName     string              `json:"instance_name,omitempty"`
+	InstanceClass    int                 `json:"instance_class,omitempty"`
+	Status           string              `json:"status,omitempty"`
+	Description      string              `json:"description,omitempty"`
+	ReservedContract string              `json:"reserved_contract,omitempty"`
+	VolumeIDS        []string            `json:"volume_ids,omitempty"`
+	ZoneID           string              `json:"zone_id,omitempty"`
+	InstanceID       string              `json:"instance_id,omitempty"`
+	InstanceType     string              `json:"instance_type,omitempty"`
+	Volumes          []InstanceSetVolume `json:"volumes,omitempty"`
+	KeypairIDS       []string            `json:"keypair_ids,omitempty"`
+	Extra            InstanceSetExtra    `json:"extra"`
 }
 
-type Image struct {
+type InstanceSetExtra struct {
+	OSDiskSize int `json:"os_disk_size"`
+}
+type InstanceSetImage struct {
 	ImageID string `json:"image_id"`
 }
 
-type Volume struct {
+type InstanceSetVolume struct {
 	Device   string `json:"device"`
 	VolumeID string `json:"volume_id"`
 }
 
-type Vxnet struct {
+type InstanceSetVxnet struct {
 	Ipv6Address string `json:"ipv6_address"`
 	VxnetType   int    `json:"vxnet_type"`
 	VxnetID     string `json:"vxnet_id"`
