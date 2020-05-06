@@ -3,15 +3,16 @@ package qingyun
 type AddProjectResourceItemsRequest struct {
 	ProjectID string   `yaml:"project_id,omitempty" json:"project_id,omitempty" url:"project_id,omitempty"`
 	Resources []string `yaml:"resources,omitempty" json:"resources,omitempty" url:"resources,omitempty,dotnumbered,numbered1"`
+	Zone      string   `json:"zone,omitempty" yaml:"zone,omitempty" url:"zone,omitempty"`
 }
 
 type AddProjectResourceItemsResponse struct {
-	Message     string   `json:"message" name:"message"`
-	Action      string   `json:"action" name:"action" location:"elements"`
-	ProjectID   string   `json:"project_id" name:"project_id" location:"elements"`
-	ResourceIDs []string `json:"resource_ids" name:"resource_ids" location:"elements"`
-	RetCode     int      `json:"ret_code" name:"ret_code" location:"elements"`
-	ZoneID      string   `json:"zone_id" name:"zone_id" location:"elements"`
+	Message     string   `json:"message,omitempty"`
+	Action      string   `json:"action,omitempty"`
+	ProjectID   string   `json:"project_id,omitempty"`
+	ResourceIDs []string `json:"resource_ids,omitempty"`
+	RetCode     int      `json:"ret_code,omitempty"`
+	ZoneID      string   `json:"zone_id,omitempty"`
 }
 
 func (cli Client) AddProjectResourceItems(params AddProjectResourceItemsRequest) (resp AddProjectResourceItemsResponse, err error) {
@@ -22,13 +23,19 @@ func (cli Client) AddProjectResourceItems(params AddProjectResourceItemsRequest)
 type DeleteProjectResourceItemsRequest struct {
 	ProjectID []string `yaml:"project_id,omitempty" json:"project_id,omitempty" url:"project_id,omitempty,dotnumbered,numbered1"` // Required
 	Resources []string `yaml:"resources,omitempty" json:"resources,omitempty" url:"resources,omitempty,dotnumbered,numbered1"`    // Required
+	Zone      string   `json:"zone,omitempty" yaml:"zone,omitempty" url:"zone,omitempty"`
 }
 
 type DeleteProjectResourceItemsResponse struct {
-	Message     string   `yaml:"message,omitempty" json:"message,omitempty" url:"message,omitempty"`
-	Action      string   `yaml:"action,omitempty" json:"action,omitempty" url:"action,omitempty"`
-	ProjectID   []string `yaml:"project_id,omitempty" json:"project_id,omitempty" url:"project_id,omitempty,dotnumbered,numbered1"`
-	ResourceIDs []string `yaml:"resource_i_ds,omitempty" json:"resource_i_ds,omitempty" url:"resource_i_ds,omitempty,dotnumbered,numbered1"`
-	RetCode     int      `yaml:"ret_code,omitempty" json:"ret_code,omitempty" url:"ret_code,omitempty"`
-	ZoneID      string   `yaml:"zone_id,omitempty" json:"zone_id,omitempty" url:"zone_id,omitempty"`
+	Message     string   `json:"message,omitempty"`
+	Action      string   `json:"action,omitempty"`
+	ProjectID   []string `json:"project_id,omitempty"`
+	ResourceIDs []string `json:"resource_ids,omitempty"`
+	RetCode     int      `json:"ret_code,omitempty"`
+	ZoneID      string   `json:"zone_id,omitempty"`
+}
+
+func (cli *Client) DeleteProjectResourceItems(params DeleteProjectResourceItemsRequest) (resp DeleteProjectResourceItemsResponse, err error) {
+	err = cli.MethodGET("DeleteProjectResourceItems", params, &resp)
+	return
 }
