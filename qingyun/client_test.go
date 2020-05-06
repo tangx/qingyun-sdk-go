@@ -3,6 +3,8 @@ package qingyun
 import (
 	"fmt"
 	"testing"
+
+	"github.com/sirupsen/logrus"
 )
 
 const (
@@ -98,8 +100,12 @@ func Test_DescribeVolumes(t *testing.T) {
 
 func Test_DescribeInstances(t *testing.T) {
 
+	logrus.SetLevel(logrus.DebugLevel)
+
+	inst := "i-cjg5iepp"
+
 	params := DescribeInstancesRequest{
-		Instances: []string{"i-cjg5iepp"},
+		Instances: []string{inst},
 	}
 	resp, err := cli.DescribeInstances(params)
 
@@ -118,4 +124,24 @@ func Test_DescribeZones(t *testing.T) {
 		panic(err)
 	}
 	fmt.Println(resp)
+}
+
+func Test_AttachVolume(t *testing.T) {
+
+	logrus.SetLevel(logrus.DebugLevel)
+
+	vol := "vol-uydrnlax"
+	inst := "i-sd29dfl2"
+
+	params := AttachVolumesRequest{
+		Volumes:  []string{vol},
+		Instance: inst,
+		Zone:     "pek2",
+	}
+
+	resp, err := cli.AttachVolumes(params)
+	if err != nil {
+		logrus.Fatal(err)
+	}
+	logrus.Info(resp)
 }

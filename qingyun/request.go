@@ -135,18 +135,25 @@ func (cli *Client) MethodGET(action string, params interface{}, ptrResp interfac
 	}
 
 	data, err := cli.requestGET(action, urlValues, ptrResp)
-	if err != nil {
-		msg := ErrorResponse{}
-		json.Unmarshal(data, &msg)
-		s := fmt.Sprintf("%d: %s", msg.RetCode, msg.Message)
-
-		return errors.New(s)
-	}
 	logrus.Debugf("%s", data)
 
+	// http request error
+	if err != nil {
+		return fmt.Errorf("Http Request Error: %s", err)
+	}
+
+	// qingcloud api request error
+	errMsg := ErrorResponse{}
+	json.Unmarshal(data, &errMsg)
+	if errMsg.RetCode != 0 {
+		s := fmt.Sprintf("%d: %s", errMsg.RetCode, errMsg.Message)
+		return errors.New(s)
+	}
+
+	// unmarshal response data
 	err = json.Unmarshal(data, ptrResp)
 	if err != nil {
-		return err
+		return fmt.Errorf("Unmarshal response data Error: %s", err)
 	}
 
 	return nil
