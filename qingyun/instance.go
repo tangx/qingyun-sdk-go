@@ -12,6 +12,8 @@ type RunInstancesRequest struct {
 	InstanceName  string   `yaml:"instance_name,omitempty" json:"instance_name,omitempty" url:"instance_name,omitempty"`
 	Zone          string   `yaml:"zone,omitempty" json:"zone,omitempty" url:"zone,omitempty"`
 	Vxnets        []string `yaml:"vxnets,omitempty" json:"vxnets,omitempty" url:"vxnets,omitempty,dotnumbered,numbered1"`
+	Gpu           int      `yaml:"gpu,omitempty" json:"gpu,omitempty" url:"gpu,omitempty"`
+	GpuClass      int      `yaml:"gpu_class,omitempty" json:"gpu_class,omitempty" url:"gpu_class,omitempty"`
 }
 
 type RunInstancesResponse struct {
