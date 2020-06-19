@@ -3,7 +3,7 @@ package qingyun
 type RunInstancesRequest struct {
 	ImageID       string   `yaml:"image_id,omitempty" json:"image_id,omitempty" url:"image_id,omitempty"`
 	CPU           int      `yaml:"cpu,omitempty" json:"cpu,omitempty" url:"cpu,omitempty"`
-	CpuModel      string   `yaml:"cpu_model,omitempty" json:"cpu_model,omitempty" url:"cpu_model,omitempty"`
+	CPUModel      string   `yaml:"cpu_model,omitempty" json:"cpu_model,omitempty" url:"cpu_model,omitempty"`
 	Memory        int      `yaml:"memory,omitempty" json:"memory,omitempty" url:"memory,omitempty"`
 	InstanceClass int      `yaml:"instance_class,omitempty" json:"instance_class,omitempty" url:"instance_class,omitempty"`
 	InstanceType  string   `yaml:"instance_type,omitempty" json:"instance_type,omitempty" url:"instance_type,omitempty"`
@@ -14,7 +14,7 @@ type RunInstancesRequest struct {
 	Zone          string   `yaml:"zone,omitempty" json:"zone,omitempty" url:"zone,omitempty"`
 	Vxnets        []string `yaml:"vxnets,omitempty" json:"vxnets,omitempty" url:"vxnets,omitempty,dotnumbered,numbered1"`
 	GPU           int      `yaml:"gpu,omitempty" json:"gpu,omitempty" url:"gpu,omitempty"`
-	GpuClass      int      `yaml:"gpu_class,omitempty" json:"gpu_class,omitempty" url:"gpu_class,omitempty"`
+	GPUClass      int      `yaml:"gpu_class,omitempty" json:"gpu_class,omitempty" url:"gpu_class,omitempty"`
 }
 
 type RunInstancesResponse struct {
@@ -67,7 +67,22 @@ type InstanceSet struct {
 }
 
 type InstanceSetExtra struct {
-	OSDiskSize int `json:"os_disk_size"`
+	OSDiskSize       int    `json:"os_disk_size"`
+	Iops             int    `json:"iops"`
+	NICMqueue        int    `json:"nic_mqueue"`
+	ReadThroughput   int    `json:"read_throughput"`
+	GPUPCINums       string `json:"gpu_pci_nums"`
+	CPUMax           int    `json:"cpu_max"`
+	CPUModel         string `json:"cpu_model"`
+	Bandwidth        int    `json:"bandwidth"`
+	MemMax           int    `json:"mem_max"`
+	Throughput       int    `json:"throughput"`
+	ReadIops         int    `json:"read_iops"`
+	Hypervisor       string `json:"hypervisor"`
+	OSDiskEncryption int    `json:"os_disk_encryption"`
+	GPU              int    `json:"gpu"`
+	GPUClass         int    `json:"gpu_class"`
+	Features         int    `json:"features"`
 }
 type InstanceSetImage struct {
 	ImageID string `json:"image_id"`
