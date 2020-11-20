@@ -71,6 +71,7 @@ func (cli *Client) request(method, action string, param url.Values, body io.Read
 	// 注意: 阿里云对用户 key 签名有特殊说明
 	//    https://help.aliyun.com/document_detail/29747.html?spm=a2c4g.11186623.6.619.57ad2846HCScB1
 	signature := Signature(method, apiPlatform, param, cli.QySecretAccessKey)
+	logrus.Debugf("signature = %s\n", signature)
 	// 请求体中增加签名参数
 	//param.Set("Signature", url.QueryEscape(signature))
 	// param.Set("signature", signature)
@@ -79,6 +80,7 @@ func (cli *Client) request(method, action string, param url.Values, body io.Read
 	// https://api.qingcloud.com/iaas/?access_key_id=QYACCESSKEYIDEXAMPLE&action=DescribeInstances&expires=2013-08-29T07%3A42%3A25Z&limit=20&signature_method=HmacSHA256&signature_version=1&status.1=running&time_stamp=2013-08-29T06%3A42%3A25Z&version=1&zone=pek3b&signature=ihPnXFgsg5yyqhDN2IejJ2%2Bbo89ABQ1UqFkyOdzRITY%3D
 	reqURL := reqProtocol + "://" + apiServer + apiPlatform + "?" + param.Encode() + "&signature=" + signature
 	// fmt.Println(reqURL)
+	logrus.Debugf("reqURL = %s\n", reqURL)
 
 	req, err := http.NewRequest(method, reqURL, body)
 	if err != nil {
