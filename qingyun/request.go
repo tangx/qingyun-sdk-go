@@ -144,7 +144,7 @@ func (cli *Client) MethodGET(action string, params interface{}, ptrResp interfac
 
 	// qingcloud api request error
 	errMsg := ErrorResponse{}
-	json.Unmarshal(data, &errMsg)
+	_ = json.Unmarshal(data, &errMsg)
 	if errMsg.RetCode != 0 {
 		s := fmt.Sprintf("%d: %s", errMsg.RetCode, errMsg.Message)
 		return errors.New(s)

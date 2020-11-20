@@ -28,7 +28,7 @@ func Signature(reqMethod string, platform string, param url.Values, secret strin
 func ShaHmac1(source, secret string) string {
 	key := []byte(secret)
 	shaHmac := hmac.New(sha1.New, key)
-	shaHmac.Write([]byte(source))
+	_, _ = shaHmac.Write([]byte(source))
 	signedBytes := shaHmac.Sum(nil)
 	signedString := base64.StdEncoding.EncodeToString(signedBytes)
 	return signedString
@@ -38,7 +38,7 @@ func ShaHmac1(source, secret string) string {
 func ShaHmac256(source, secret string) string {
 	key := []byte(secret)
 	shaHmac := hmac.New(sha256.New, key)
-	shaHmac.Write([]byte(source))
+	_, _ = shaHmac.Write([]byte(source))
 	signedBytes := shaHmac.Sum(nil)
 	signedString := base64.StdEncoding.EncodeToString(signedBytes)
 	signedString = strings.TrimSpace(signedString)
