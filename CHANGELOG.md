@@ -5,6 +5,9 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
+# [1.2.3](https://github.com/tangx/qingyun-sdk-go/compare/v1.2.2...v1.2.3)
+
+
 # [1.2.2](https://github.com/tangx/qingyun-sdk-go/compare/v1.2.1...v1.2.2)
 
 ### Bug Fixes
