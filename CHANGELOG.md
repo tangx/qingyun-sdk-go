@@ -5,7 +5,16 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
+# [1.2.4](https://github.com/tangx/qingyun-sdk-go/compare/v1.2.3...v1.2.4)
+
+### Bug Fixes
+
+* **fix** 编码时空格要转换成 “%20” , 而不是 “+” ([40bb397](https://github.com/tangx/qingyun-sdk-go/commit/40bb39704dfdc6fdb2c0f014ed5591088acc9320))
+
+
+
 # [1.2.3](https://github.com/tangx/qingyun-sdk-go/compare/v1.2.2...v1.2.3)
+
 
 
 # [1.2.2](https://github.com/tangx/qingyun-sdk-go/compare/v1.2.1...v1.2.2)
