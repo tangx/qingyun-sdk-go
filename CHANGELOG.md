@@ -5,6 +5,14 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
+# [1.2.2](https://github.com/tangx/qingyun-sdk-go/compare/v1.2.1...v1.2.2)
+
+### Bug Fixes
+
+* **fix** zone for cert params ([df72a4e](https://github.com/tangx/qingyun-sdk-go/commit/df72a4ecff9615351e1f8a90c5132bc17884c092))
+
+
+
 # [1.2.1](https://github.com/tangx/qingyun-sdk-go/compare/v1.2.0...v1.2.1)
 
 ### Bug Fixes
