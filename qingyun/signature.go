@@ -43,7 +43,11 @@ func ShaHmac256(source, secret string) string {
 	signedString := base64.StdEncoding.EncodeToString(signedBytes)
 	signedString = strings.TrimSpace(signedString)
 	signedString = strings.Replace(signedString, " ", "+", -1)
-	signedString = url.QueryEscape(signedString)
-
+	signedString = url.PathEscape(signedString)
+	/*
+		https://docs.qingcloud.com/product/api/common/signature.html
+		编码时空格要转换成 “%20” , 而不是 “+”
+		resolv: https://www.jianshu.com/p/2ba7dda583b5
+	*/
 	return signedString
 }
