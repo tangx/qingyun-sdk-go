@@ -3,9 +3,10 @@ package qingyun
 import "time"
 
 type CreateServerCertificateRequest struct {
-	ServerCertificateName string `json:"server_certificate_name,omitempty" url:"server_certificate_name,omitempty"`
-	CertificateContent    string `json:"certificate_content,omitempty" url:"certificate_content,omitempty"`
-	PrivateKey            string `json:"private_key,omitempty" url:"private_key,omitempty"`
+	ServerCertificateName string `json:"server_certificate_name,omitempty" url:"server_certificate_name,omitempty" yaml:"server_certificate_name,omitempty"`
+	CertificateContent    string `json:"certificate_content,omitempty" url:"certificate_content,omitempty" yaml:"certificate_content,omitempty"`
+	PrivateKey            string `json:"private_key,omitempty" url:"private_key,omitempty" yaml:"private_key,omitempty"`
+	Zone                  string `yaml:"zone,omitempty" json:"zone,omitempty" url:"zone,omitempty"`
 }
 
 type CreateServerCertificateResponse struct {
@@ -21,6 +22,7 @@ func (cli *Client) CreateCertificate(params CreateServerCertificateRequest) (res
 
 type DeleteServerCertificatesRequest struct {
 	ServerCertificates []string `yaml:"server_certificates,omitempty" json:"server_certificates,omitempty" url:"server_certificates,omitempty,dotnumbered,numbered1"`
+	Zone               string
 }
 
 type DeleteServerCertificatesResponse struct {
@@ -37,6 +39,7 @@ func (cli *Client) DeleteCertificates(params DeleteServerCertificatesRequest) (r
 type AssociateCertsToLBListenerRequest struct {
 	ServerCertificates   []string `yaml:"server_certificates,omitempty" json:"server_certificates,omitempty" url:"server_certificates,omitempty"`
 	LoadbalancerListener string   `yaml:"loadbalancer_listener,omitempty" json:"loadbalancer_listener,omitempty" url:"loadbalancer_listener,omitempty"`
+	Zone                 string   `yaml:"zone,omitempty" json:"zone,omitempty" url:"zone,omitempty"`
 }
 
 type AssociateCertsToLBListenerResponse struct {
@@ -52,6 +55,7 @@ func (cli *Client) AssociateCertsToLBListener(params AssociateCertsToLBListenerR
 type DissociateCertsFromLBListenerRequest struct {
 	ServerCertificates   []string `yaml:"server_certificates,omitempty" json:"server_certificates,omitempty" url:"server_certificates,omitempty"`
 	LoadbalancerListener string   `yaml:"loadbalancer_listener,omitempty" json:"loadbalancer_listener,omitempty" url:"loadbalancer_listener,omitempty"`
+	Zone                 string   `yaml:"zone,omitempty" json:"zone,omitempty" url:"zone,omitempty"`
 }
 
 type DissociateCertsFromLBListenerResponse struct {
@@ -70,6 +74,7 @@ type DescribeCertsRequest struct {
 	Verbose            int      `yaml:"verbose,omitempty" json:"verbose,omitempty" url:"verbose,omitempty"`
 	Offset             int      `yaml:"offset,omitempty" json:"offset,omitempty" url:"offset,omitempty"`
 	Limit              int      `yaml:"limit,omitempty" json:"limit,omitempty" url:"limit,omitempty"`
+	Zone               string   `yaml:"zone,omitempty" json:"zone,omitempty" url:"zone,omitempty"`
 }
 
 type DescribeCertsResponse struct {
