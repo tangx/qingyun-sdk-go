@@ -8,6 +8,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
+	"strings"
 	"time"
 
 	"github.com/sirupsen/logrus"
@@ -38,6 +39,8 @@ func (cli *Client) request(method, action string, param url.Values, body io.Read
 	if param == nil {
 		param = url.Values{}
 	}
+
+	param = pathEcscape(param)
 
 	// 设置时区:
 	//    https://blog.csdn.net/qq_26981997/article/details/53454606
@@ -78,7 +81,8 @@ func (cli *Client) request(method, action string, param url.Values, body io.Read
 
 	// 构建 url 请求地址
 	// https://api.qingcloud.com/iaas/?access_key_id=QYACCESSKEYIDEXAMPLE&action=DescribeInstances&expires=2013-08-29T07%3A42%3A25Z&limit=20&signature_method=HmacSHA256&signature_version=1&status.1=running&time_stamp=2013-08-29T06%3A42%3A25Z&version=1&zone=pek3b&signature=ihPnXFgsg5yyqhDN2IejJ2%2Bbo89ABQ1UqFkyOdzRITY%3D
-	reqURL := reqProtocol + "://" + apiServer + apiPlatform + "?" + param.Encode() + "&signature=" + signature
+	urls := strings.Replace(param.Encode(), "%25", "%", -1)
+	reqURL := reqProtocol + "://" + apiServer + apiPlatform + "?" + urls + "&signature=" + signature
 	// fmt.Println(reqURL)
 	logrus.Debugf("reqURL = %s\n", reqURL)
 
@@ -159,4 +163,22 @@ func (cli *Client) MethodGET(action string, params interface{}, ptrResp interfac
 	}
 
 	return nil
+}
+
+func pathEcscape(params url.Values) url.Values {
+	/*
+		https://docs.qingcloud.com/product/api/common/signature.html
+		编码时空格要转换成 “%20” , 而不是 “+”
+		resolv: https://www.jianshu.com/p/2ba7dda583b5
+	*/
+	p := url.Values{}
+	for k, values := range params {
+		var v2 []string
+		for _, v := range values {
+			v2 = append(v2, url.PathEscape(v))
+		}
+		p[k] = v2
+	}
+
+	return p
 }

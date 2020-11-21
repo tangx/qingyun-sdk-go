@@ -7,6 +7,8 @@ import (
 	"encoding/base64"
 	"net/url"
 	"strings"
+
+	"github.com/sirupsen/logrus"
 )
 
 const ()
@@ -16,9 +18,9 @@ const ()
 func Signature(reqMethod string, platform string, param url.Values, secret string) string {
 
 	// fmt.Println("param.Encode=", param.Encode())
-	urls := param.Encode()
+	urls := strings.Replace(param.Encode(), "%25", "%", -1)
 	source := reqMethod + "\n" + platform + "\n" + urls
-
+	logrus.Debugf("source = %s\n", source)
 	// fmt.Println(source)
 	// return ShaHmac1(source, secret)
 	return ShaHmac256(source, secret)
@@ -43,11 +45,6 @@ func ShaHmac256(source, secret string) string {
 	signedString := base64.StdEncoding.EncodeToString(signedBytes)
 	signedString = strings.TrimSpace(signedString)
 	signedString = strings.Replace(signedString, " ", "+", -1)
-	signedString = url.PathEscape(signedString)
-	/*
-		https://docs.qingcloud.com/product/api/common/signature.html
-		编码时空格要转换成 “%20” , 而不是 “+”
-		resolv: https://www.jianshu.com/p/2ba7dda583b5
-	*/
+	signedString = url.QueryEscape(signedString)
 	return signedString
 }
