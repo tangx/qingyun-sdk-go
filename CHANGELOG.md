@@ -5,6 +5,14 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
+# [1.2.5](https://github.com/tangx/qingyun-sdk-go/compare/v1.2.4...v1.2.5)
+
+### Bug Fixes
+
+* **fix** 解决请求中有空格时的验签问题 ([e1cc0b2](https://github.com/tangx/qingyun-sdk-go/commit/e1cc0b2face4d267f009e93d2d81c12643415bd2))
+
+
+
 # [1.2.4](https://github.com/tangx/qingyun-sdk-go/compare/v1.2.3...v1.2.4)
 
 ### Bug Fixes
