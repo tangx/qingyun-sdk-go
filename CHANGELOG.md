@@ -5,6 +5,14 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
+# [1.3.0](https://github.com/tangx/qingyun-sdk-go/compare/v1.2.6...v1.3.0)
+
+### Features
+
+* **feat** add lb and lbl ([9a89182](https://github.com/tangx/qingyun-sdk-go/commit/9a891821e78a19c42642bf99085decff914bc9d6))
+
+
+
 # [1.2.6](https://github.com/tangx/qingyun-sdk-go/compare/v1.2.5...v1.2.6)
 
 ### Bug Fixes
