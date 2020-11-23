@@ -37,7 +37,7 @@ func (cli *Client) DeleteCertificates(params DeleteServerCertificatesRequest) (r
 }
 
 type AssociateCertsToLBListenerRequest struct {
-	ServerCertificates   []string `yaml:"server_certificates,omitempty" json:"server_certificates,omitempty" url:"server_certificates,omitempty"`
+	ServerCertificates   []string `yaml:"server_certificates,omitempty" json:"server_certificates,omitempty" url:"server_certificates,omitempty,dotnumbered,numbered1"`
 	LoadbalancerListener string   `yaml:"loadbalancer_listener,omitempty" json:"loadbalancer_listener,omitempty" url:"loadbalancer_listener,omitempty"`
 	Zone                 string   `yaml:"zone,omitempty" json:"zone,omitempty" url:"zone,omitempty"`
 }
@@ -53,7 +53,7 @@ func (cli *Client) AssociateCertsToLBListener(params AssociateCertsToLBListenerR
 }
 
 type DissociateCertsFromLBListenerRequest struct {
-	ServerCertificates   []string `yaml:"server_certificates,omitempty" json:"server_certificates,omitempty" url:"server_certificates,omitempty"`
+	ServerCertificates   []string `yaml:"server_certificates,omitempty" json:"server_certificates,omitempty" url:"server_certificates,omitempty,dotnumbered,numbered1"`
 	LoadbalancerListener string   `yaml:"loadbalancer_listener,omitempty" json:"loadbalancer_listener,omitempty" url:"loadbalancer_listener,omitempty"`
 	Zone                 string   `yaml:"zone,omitempty" json:"zone,omitempty" url:"zone,omitempty"`
 }
@@ -69,7 +69,7 @@ func (cli *Client) DissociateCertsFromLBListener(params DissociateCertsFromLBLis
 }
 
 type DescribeCertsRequest struct {
-	ServerCertificates []string `yaml:"server_certificates,omitempty" json:"server_certificates,omitempty" url:"server_certificates,omitempty"`
+	ServerCertificates []string `yaml:"server_certificates,omitempty" json:"server_certificates,omitempty" url:"server_certificates,omitempty,dotnumbered,numbered1"`
 	SearchWord         string   `yaml:"search_word,omitempty" json:"search_word,omitempty" url:"search_word,omitempty"`
 	Verbose            int      `yaml:"verbose,omitempty" json:"verbose,omitempty" url:"verbose,omitempty"`
 	Offset             int      `yaml:"offset,omitempty" json:"offset,omitempty" url:"offset,omitempty"`
