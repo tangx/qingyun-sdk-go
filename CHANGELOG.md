@@ -5,6 +5,14 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
+# [1.2.6](https://github.com/tangx/qingyun-sdk-go/compare/v1.2.5...v1.2.6)
+
+### Bug Fixes
+
+* **fix** cert reqeust list url tag filed error ([2304e1f](https://github.com/tangx/qingyun-sdk-go/commit/2304e1f41efd07fca336570fc315afeabeb7ba8c))
+
+
+
 # [1.2.5](https://github.com/tangx/qingyun-sdk-go/compare/v1.2.4...v1.2.5)
 
 ### Bug Fixes
