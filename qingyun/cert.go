@@ -79,6 +79,7 @@ type DescribeCertsResponse struct {
 	Action               string              `yaml:"action,omitempty" json:"action,omitempty" url:"action,omitempty"`
 	TotalCount           int                 `yaml:"total_count,omitempty" json:"total_count,omitempty" url:"total_count,omitempty"`
 	ServerCertificateSet []ServerCertificate `yaml:"server_certificate_set,omitempty" json:"server_certificate_set,omitempty" url:"server_certificate_set,omitempty"`
+	RetCode              int                 `yaml:"ret_code,omitempty" json:"ret_code,omitempty" url:"ret_code,omitempty"`
 }
 
 func (cli *Client) DescribeCerts(params DescribeCertsRequest) (resp DescribeCertsResponse, err error) {

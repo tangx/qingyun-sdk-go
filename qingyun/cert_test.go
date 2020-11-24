@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/davecgh/go-spew/spew"
+	"github.com/sirupsen/logrus"
 )
 
 var crt = `-----BEGIN CERTIFICATE-----
@@ -49,12 +50,20 @@ func Test_CreateCert(t *testing.T) {
 }
 
 func Test_DescribeCertByName(t *testing.T) {
-	// logrus.SetLevel(logrus.DebugLevel)
-
-	// cli := NewWithFile(authFile)
-
 	params := DescribeCertsRequest{
-		// SearchWord: "tangxin",
+		SearchWord: "tangxin",
+		Verbose:    1,
+	}
+
+	resp, err := cli.DescribeCerts(params)
+	if err != nil {
+		panic(err)
+	}
+	spew.Dump(resp)
+}
+
+func Test_DescribeCertByID(t *testing.T) {
+	params := DescribeCertsRequest{
 		ServerCertificates: []string{"sc-0j6zpvru"},
 		Verbose:            1,
 	}
@@ -66,6 +75,6 @@ func Test_DescribeCertByName(t *testing.T) {
 	spew.Dump(resp)
 }
 
-// func init() {
-// 	logrus.SetLevel(logrus.DebugLevel)
-// }
+func init() {
+	logrus.SetLevel(logrus.DebugLevel)
+}
