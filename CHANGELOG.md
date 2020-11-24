@@ -5,6 +5,14 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
+# [1.3.2](https://github.com/tangx/qingyun-sdk-go/compare/v1.3.1...v1.3.2)
+
+### Bug Fixes
+
+* **fix** add lbl response retcode ([1451756](https://github.com/tangx/qingyun-sdk-go/commit/1451756cc524167afbba1120bedf4a38d296ae7f))
+
+
+
 # [1.3.1](https://github.com/tangx/qingyun-sdk-go/compare/v1.3.0...v1.3.1)
 
 ### Bug Fixes
