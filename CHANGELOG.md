@@ -5,6 +5,14 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
+# [1.3.1](https://github.com/tangx/qingyun-sdk-go/compare/v1.3.0...v1.3.1)
+
+### Bug Fixes
+
+* **fix** add lbl and scd return in  certs describ response ([e883cad](https://github.com/tangx/qingyun-sdk-go/commit/e883cad488f48b502610fde074b33eaa927344c0))
+
+
+
 # [1.3.0](https://github.com/tangx/qingyun-sdk-go/compare/v1.2.6...v1.3.0)
 
 ### Features
