@@ -1,7 +1,5 @@
 package qingyun
 
-import "time"
-
 type CreateServerCertificateRequest struct {
 	ServerCertificateName string `json:"server_certificate_name,omitempty" url:"server_certificate_name,omitempty" yaml:"server_certificate_name,omitempty"`
 	CertificateContent    string `json:"certificate_content,omitempty" url:"certificate_content,omitempty" yaml:"certificate_content,omitempty"`
@@ -79,17 +77,8 @@ type DescribeCertsRequest struct {
 
 type DescribeCertsResponse struct {
 	Action               string              `yaml:"action,omitempty" json:"action,omitempty" url:"action,omitempty"`
-	ServerCertificateSet []ServerCertificate `yaml:"server_certificate_set,omitempty" json:"server_certificate_set,omitempty" url:"server_certificate_set,omitempty"`
 	TotalCount           int                 `yaml:"total_count,omitempty" json:"total_count,omitempty" url:"total_count,omitempty"`
-}
-
-type ServerCertificate struct {
-	ServerCertificateID   string    `yaml:"server_certificate_id,omitempty" json:"server_certificate_id,omitempty" url:"server_certificate_id,omitempty"`
-	ServerCertificateName string    `yaml:"server_certificate_name,omitempty" json:"server_certificate_name,omitempty" url:"server_certificate_name,omitempty"`
-	PrivateKey            string    `yaml:"private_key,omitempty" json:"private_key,omitempty" url:"private_key,omitempty"`
-	CertificateContent    string    `yaml:"certificate_content,omitempty" json:"certificate_content,omitempty" url:"certificate_content,omitempty"`
-	Description           string    `yaml:"description,omitempty" json:"description,omitempty" url:"description,omitempty"`
-	CreateTime            time.Time `yaml:"create_time,omitempty" json:"create_time,omitempty" url:"create_time,omitempty"`
+	ServerCertificateSet []ServerCertificate `yaml:"server_certificate_set,omitempty" json:"server_certificate_set,omitempty" url:"server_certificate_set,omitempty"`
 }
 
 func (cli *Client) DescribeCerts(params DescribeCertsRequest) (resp DescribeCertsResponse, err error) {

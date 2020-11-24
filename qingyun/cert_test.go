@@ -47,3 +47,25 @@ func Test_CreateCert(t *testing.T) {
 	}
 	spew.Dump(resp)
 }
+
+func Test_DescribeCertByName(t *testing.T) {
+	// logrus.SetLevel(logrus.DebugLevel)
+
+	// cli := NewWithFile(authFile)
+
+	params := DescribeCertsRequest{
+		// SearchWord: "tangxin",
+		ServerCertificates: []string{"sc-0j6zpvru"},
+		Verbose:            1,
+	}
+
+	resp, err := cli.DescribeCerts(params)
+	if err != nil {
+		panic(err)
+	}
+	spew.Dump(resp)
+}
+
+// func init() {
+// 	logrus.SetLevel(logrus.DebugLevel)
+// }
